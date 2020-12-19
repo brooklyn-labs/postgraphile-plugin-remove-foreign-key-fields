@@ -1,0 +1,86 @@
+version: 2.1
+jobs:
+  # Build the Node project.
+  build:
+    docker:
+      - image: circleci/node:lts
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - npm-packages-{{ checksum "package-lock.json" }}
+
+            # Fallback to using the latest cache if no exact match is found.
+            - npm-packages-
+
+      - run:
+          name: Install NPM Packages
+          command: npm install
+
+      - run:
+          name: Run Linters
+          command: npm run lint
+
+      - save_cache:
+          key: npm-packages-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.cache/npm
+
+      # Save our workspace so we can access it from other containers.
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .
+
+  # Publish npm packages.
+  publish:
+    docker:
+      - image: circleci/node:lts
+
+    steps:
+      # Attach preview workspace to the `publish` container.
+      - attach_workspace:
+          at: ~/
+
+      - run:
+          name: Build Project
+          command: npm run build
+
+      - run:
+          name: Authenticate With NPM Registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+
+      - run:
+          name: Publish Package
+          command: npm publish
+
+workflows:
+  # version: 2.1
+  build-publish:
+    # when:
+    #   and:
+    #     - equal: [master, << pipeline.git.branch >>]
+    #     - equal: [/^v.*/, << pipeline.git.tag >>]
+
+    jobs:
+      # Build on any tag.
+      - build:
+          filters:
+            branches:
+              only: main
+
+            # This is needed because by default the workflow won't run on the push of a tag.
+            # Here we are forcing the workflow to run even on pushed tags.
+            tags:
+              only: /^v.*/
+
+      # Publish NPM package only when tag starts with `v`
+      - publish:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/

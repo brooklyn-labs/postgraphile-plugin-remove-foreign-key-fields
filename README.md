@@ -1,11 +1,11 @@
-# postgraphile-table-extension-plugin
+# postgraphile-remove-foreign-key-fields-plugin
 
-[![CircleCI](https://circleci.com/gh/jarvisuser90/postgraphile-remove-foreign-key-fields-plugin.svg?style=shield)](https://github.com/jarvisuser90/postgraphile-remove-foreign-key-fields-plugin)
-[![npm version](https://badge.fury.io/js/postgraphile-remove-foreign-key-fields-plugin.svg)](https://badge.fury.io/js/postgraphile-remove-foreign-key-fields-plugin)
+[![CircleCI](https://img.shields.io/circleci/build/github/jarvisuser90/postgraphile-remove-foreign-key-fields-plugin/main)](https://github.com/jarvisuser90/postgraphile-remove-foreign-key-fields-plugin)
+[![npm version](https://img.shields.io/npm/v/postgraphile-remove-foreign-key-fields-plugin)](https://www.npmjs.com/package/postgraphile-remove-foreign-key-fields-plugin)
 
 ## Motivation
 
-This PostGraphile plugin removes all foreign key fields from the GraphQL schema while still allowing foreign relationships to be created. Primary key fields (which also are foreign keys) are not removed from the GraphQL schema.
+This PostGraphile plugin removes all foreign key fields from the GraphQL schema while still allowing foreign relationships to be created. Primary key fields (which may also be used as a foreign key) are not removed from the GraphQL schema.
 
 Example
 
