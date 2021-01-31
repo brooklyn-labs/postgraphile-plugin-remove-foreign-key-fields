@@ -22,12 +22,27 @@ export const RemoveForeignKeyFieldsPlugin: Plugin = (
       return fields;
     }
 
+    // Represents the current table as a PostGraphile class.
+    const pgClass = table as PgClass;
+
+    // Check if the current table is an enum table.
+    const isEnumTable = pgClass.comment
+      ? pgClass.comment.includes("@enum")
+      : false;
+
+    // There's no need to omit any field from an
+    // enum table.
+    if (isEnumTable) {
+      // Skip this table!
+      return fields;
+    }
+
     const { inflection } = build;
     const primaryKeyFields: string[] = [];
     const fieldsToOmit: string[] = [];
 
     // Get the primary key for the current table.
-    (table as PgClass).constraints
+    pgClass.constraints
       // `p` represents the primary key type.
       .filter((constraint: PgConstraint) => constraint.type === "p")
 
@@ -49,7 +64,7 @@ export const RemoveForeignKeyFieldsPlugin: Plugin = (
       });
 
     // Get all foreign keys for the current table.
-    (table as PgClass).constraints
+    pgClass.constraints
       // `f` represents the foreign key type.
       .filter((constraint: PgConstraint) => constraint.type === "f")
 
@@ -58,10 +73,16 @@ export const RemoveForeignKeyFieldsPlugin: Plugin = (
         // Iterate over all foreign key fields. Could be one field or multiple fields
         // in the case of compound foreign keys.
         constraint.keyAttributes.forEach((attribute: PgAttribute) => {
+          // Check if the foreign key is marked as an enum reference.
+          const isEnum = attribute.comment
+            ? attribute.comment.includes("@enum")
+            : false;
+
           // Check if field is a primary key field. If so, we don't want to
           // remove it from the GraphQL schema. The primary key fields are used
           // for identifying a record, filtering, etc.
-          if (primaryKeyFields.includes(attribute.name)) {
+          // Also, don't omit the key if it's an enum key.
+          if (primaryKeyFields.includes(attribute.name) || isEnum) {
             // Don't omit field.
             return;
           }
