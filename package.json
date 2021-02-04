@@ -1,6 +1,6 @@
 {
   "name": "postgraphile-remove-foreign-key-fields-plugin",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "PostGraphile plugin that removes all foreign key fields from the GraphQL schema while still allowing foreign relationships to be created. Primary key fields are not removed from the GraphQL schema.",
   "author": "John Ciprian",
   "license": "MIT",
