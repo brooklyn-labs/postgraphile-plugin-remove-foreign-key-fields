@@ -25,18 +25,6 @@ export const RemoveForeignKeyFieldsPlugin: Plugin = (
     // Represents the current table as a PostGraphile class.
     const pgClass = table as PgClass;
 
-    // Check if the current table is an enum table.
-    const isEnumTable = pgClass.comment
-      ? pgClass.comment.includes("@enum")
-      : false;
-
-    // There's no need to omit any field from an
-    // enum table.
-    if (isEnumTable) {
-      // Skip this table!
-      return fields;
-    }
-
     const { inflection } = build;
     const primaryKeyFields: string[] = [];
     const fieldsToOmit: string[] = [];
@@ -70,19 +58,39 @@ export const RemoveForeignKeyFieldsPlugin: Plugin = (
 
       // Iterate over all foreign keys.
       .forEach((constraint: PgConstraint) => {
+        // const isEnum = constraint.foreignClass.comment;
+        const { foreignClass } = constraint;
+        // Check if the foreign table is marked as an enum reference.
+        const isTableEnum =
+          foreignClass && foreignClass.comment
+            ? foreignClass.comment.includes("@enum")
+            : false;
+
+        // Check for unique constraint (not indexes) marked as enum reference.
+        const hasUniqueEnum = foreignClass
+          ? foreignClass.constraints
+              // `u` represents the unique type.
+              .filter((constraint: PgConstraint) => constraint.type === "u")
+              // Reduce to a boolean if any contains an enum reference.
+              .reduce<boolean>((found: boolean, constraint: PgConstraint) => {
+                const { comment } = constraint;
+
+                return found || (comment && comment.includes("@enum"));
+              }, false)
+          : false;
+
         // Iterate over all foreign key fields. Could be one field or multiple fields
         // in the case of compound foreign keys.
         constraint.keyAttributes.forEach((attribute: PgAttribute) => {
-          // Check if the foreign key is marked as an enum reference.
-          const isEnum = attribute.comment
-            ? attribute.comment.includes("@enum")
-            : false;
-
           // Check if field is a primary key field. If so, we don't want to
           // remove it from the GraphQL schema. The primary key fields are used
           // for identifying a record, filtering, etc.
           // Also, don't omit the key if it's an enum key.
-          if (primaryKeyFields.includes(attribute.name) || isEnum) {
+          if (
+            primaryKeyFields.includes(attribute.name) ||
+            isTableEnum ||
+            hasUniqueEnum
+          ) {
             // Don't omit field.
             return;
           }
