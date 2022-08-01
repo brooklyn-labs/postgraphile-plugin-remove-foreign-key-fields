@@ -2,6 +2,13 @@
 
 **All major releases are breaking changes.**
 
+## v1.3.0
+
+- Change package owner to `Brooklyn Labs`.
+- Refactored package name to `@brooklyn-labs/postgraphile-plugin-remove-foreign-key-fields`.
+- Changed CI/CD pipeline to use `GitHub Actions` instead of `Travis CI`.
+- Bump package dependencies.
+
 ## v1.2.0
 
 - Bump hosted-git-info from 2.8.8 to 2.8.9
