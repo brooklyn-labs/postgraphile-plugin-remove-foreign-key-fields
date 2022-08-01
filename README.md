@@ -1,7 +1,9 @@
 # postgraphile-plugin-remove-foreign-key-fields
 
-[![CircleCI](https://img.shields.io/circleci/build/github/jarvisuser9/postgraphile-plugin-remove-foreign-key-fields/main)](https://github.com/jarvisuser9/postgraphile-plugin-remove-foreign-key-fields)
-[![npm version](https://img.shields.io/npm/v/postgraphile-plugin-remove-foreign-key-fields)](https://www.npmjs.com/package/postgraphile-plugin-remove-foreign-key-fields)
+[![Build Status](https://img.shields.io/github/workflow/status/brooklyn-labs/postgraphile-plugin-remove-foreign-key-fields/Node.js%20CI?label=Build)](https://github.com/brooklyn-labs/postgraphile-plugin-remove-foreign-key-fields/actions/workflows/node.js.yml)
+[![NPM Publish Status](https://img.shields.io/github/workflow/status/brooklyn-labs/postgraphile-plugin-remove-foreign-key-fields/Publish%20Packages?label=Release)](https://github.com/brooklyn-labs/postgraphile-plugin-remove-foreign-key-fields/actions/workflows/npm-publish.yml)
+[![NPM Status](https://img.shields.io/npm/v/brooklyn-labs/postgraphile-plugin-remove-foreign-key-fields.svg?label=NPM)](https://github.com/www.npmjs.com/package/brooklyn-labs/postgraphile-plugin-remove-foreign-key-fields)
+![License](https://img.shields.io/github/license/brooklyn-labs/postgraphile-plugin-remove-foreign-key-fields?label=License)
 
 ## Motivation
 
