@@ -1,8 +1,8 @@
 {
-  "name": "postgraphile-plugin-remove-foreign-key-fields",
+  "name": "@bklyn-labs/postgraphile-plugin-remove-foreign-key-fields",
   "version": "1.2.0",
   "description": "PostGraphile plugin that removes all foreign key fields from the GraphQL schema while still allowing foreign relationships to be created. Primary key fields are not removed from the GraphQL schema.",
-  "author": "John Ciprian",
+  "author": "Brooklyn Labs",
   "license": "MIT",
   "scripts": {
     "lint": "eslint src --ext .ts",
@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jarvisuser90/postgraphile-remove-foreign-key-fields-plugin"
+    "url": "https://github.com/brooklyn-labs/postgraphile-plugin-remove-foreign-key-fields"
   },
   "bugs": {
-    "url": "https://github.com/jarvisuser90/postgraphile-remove-foreign-key-fields-plugin/issues"
+    "url": "https://github.com/brooklyn-labs/postgraphile-plugin-remove-foreign-key-fields/issues"
   },
-  "homepage": "https://github.com/jarvisuser90/postgraphile-remove-foreign-key-fields-plugin#readme",
+  "homepage": "https://github.com/brooklyn-labs/postgraphile-plugin-remove-foreign-key-fields#readme",
   "keywords": [
     "graphile",
     "postgraphile",
