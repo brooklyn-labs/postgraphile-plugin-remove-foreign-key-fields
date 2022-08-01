@@ -1,7 +1,7 @@
-# postgraphile-remove-foreign-key-fields-plugin
+# postgraphile-plugin-remove-foreign-key-fields
 
-[![CircleCI](https://img.shields.io/circleci/build/github/jarvisuser90/postgraphile-remove-foreign-key-fields-plugin/main)](https://github.com/jarvisuser90/postgraphile-remove-foreign-key-fields-plugin)
-[![npm version](https://img.shields.io/npm/v/postgraphile-remove-foreign-key-fields-plugin)](https://www.npmjs.com/package/postgraphile-remove-foreign-key-fields-plugin)
+[![CircleCI](https://img.shields.io/circleci/build/github/jarvisuser9/postgraphile-plugin-remove-foreign-key-fields/main)](https://github.com/jarvisuser9/postgraphile-plugin-remove-foreign-key-fields)
+[![npm version](https://img.shields.io/npm/v/postgraphile-plugin-remove-foreign-key-fields)](https://www.npmjs.com/package/postgraphile-plugin-remove-foreign-key-fields)
 
 ## Motivation
 
@@ -51,7 +51,7 @@ You can still get the address id through the `Address` type.
 Install npm package.
 
 ```shell
-npm install postgraphile-remove-foreign-key-fields-plugin
+npm install postgraphile-plugin-remove-foreign-key-fields
 ```
 
 Add plugin to postgraphile.
@@ -59,7 +59,7 @@ Add plugin to postgraphile.
 ```js
 import express from "express";
 import { postgraphile } from "postgraphile";
-import { RemoveForeignKeyFieldsPlugin } from "postgraphile-remove-foreign-key-fields-plugin";
+import { RemoveForeignKeyFieldsPlugin } from "postgraphile-plugin-remove-foreign-key-fields";
 
 const app = express();
 
